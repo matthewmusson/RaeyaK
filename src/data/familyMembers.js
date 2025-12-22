@@ -4,7 +4,7 @@ export const familyMembers = [
   "Mom",
   "Dad",
   "Mormor",
-  "Grandfaja",
+  "Granfaja",
   "Farmor",
   "Farfar",
   "Ama",

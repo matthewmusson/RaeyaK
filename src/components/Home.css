@@ -1,13 +1,111 @@
 .home {
   width: 100%;
+  position: relative;
+}
+
+/* Year Navigation Sidebar */
+.year-sidebar {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 50;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.year-sidebar.expanded {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 1.5rem;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .year-sidebar.expanded {
+  background: rgba(42, 42, 42, 0.95);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.year-nav-item {
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+  gap: 0.75rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.year-indicator {
+  width: 20px;
+  height: 2px;
+  background-color: #999;
+  transition: all 0.3s ease;
+  margin-right: 0.5rem;
+}
+
+.dark-mode .year-indicator {
+  background-color: #666;
+}
+
+.year-sidebar:not(.expanded) .year-indicator {
+  width: 20px;
+}
+
+.year-sidebar.expanded .year-indicator {
+  width: 30px;
+  background-color: #2c3e50;
+}
+
+.dark-mode .year-sidebar.expanded .year-indicator {
+  background-color: #e0e0e0;
+}
+
+.year-nav-item:hover .year-indicator {
+  background-color: #2c3e50;
+  width: 40px;
+}
+
+.dark-mode .year-nav-item:hover .year-indicator {
+  background-color: #e0e0e0;
+}
+
+.year-label {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #2c3e50;
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .year-label {
+  color: #e0e0e0;
+}
+
+.year-sidebar.expanded .year-label {
+  opacity: 1;
+  width: auto;
+}
+
+.year-nav-item:hover .year-label {
+  font-weight: 500;
 }
 
 .home-header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 3rem; 
   position: relative;
+  gap: 20px;
 }
 
 .home-header h1 {
@@ -164,8 +262,23 @@
 }
 
 @media (max-width: 768px) {
+  .home-header {
+    padding: 0 1rem;
+  }
+
   .home-header h1 {
-    font-size: 2rem;
+    font-size: 1.75rem;
+    padding-right: 3rem;
+    text-align: center;
+  }
+
+  .dark-mode-toggle {
+    padding: 0.25rem;
+  }
+
+  .theme-icon {
+    width: 20px;
+    height: 20px;
   }
 
   .year-heading {
@@ -184,6 +297,17 @@
     justify-content: flex-start;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide sidebar on narrow displays */
+  .year-sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-header h1 {
+    font-size: 1.5rem;
   }
 }
 

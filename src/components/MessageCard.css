@@ -140,8 +140,7 @@
   height: 22px;
 }
 
-.delete-button,
-.minimize-button {
+.delete-button {
   background: none;
   border: none;
   font-size: 1rem;
@@ -154,8 +153,7 @@
   height: 22px;
 }
 
-.dark-mode .delete-button,
-.dark-mode .minimize-button {
+.dark-mode .delete-button  {
   color: #888;
 }
 

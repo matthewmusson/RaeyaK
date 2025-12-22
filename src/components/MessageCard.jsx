@@ -89,13 +89,6 @@ function MessageCard({ message, onDelete, onNameClick }) {
                 >
                   ×
                 </button>
-                <button
-                  className="minimize-button"
-                  onClick={() => setIsExpanded(false)}
-                  title="Minimize"
-                >
-                  −
-                </button>
               </div>
               <div className="modal-date">
                 {formatModalDate(message.date)}

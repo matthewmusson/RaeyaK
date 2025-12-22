@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import MessageCard from './MessageCard'
 import './Home.css'
 
 function Home({ messages, familyMembers, selectedFamilyMember, onFamilyMemberSelect, onDeleteMessage, isDarkMode, onToggleDarkMode }) {
   // Limit to 30 cards
   const displayedMessages = messages.slice(0, 30)
+  const [isSidebarHovered, setIsSidebarHovered] = useState(false)
+  const yearRefs = useRef({})
 
   const handleNameClick = (name) => {
     onFamilyMemberSelect(name)
@@ -34,8 +36,43 @@ function Home({ messages, familyMembers, selectedFamilyMember, onFamilyMemberSel
   const monthOrder = ['January', 'February', 'March', 'April', 'May', 'June',
                       'July', 'August', 'September', 'October', 'November', 'December']
 
+  // Scroll to year with offset
+  const scrollToYear = (year) => {
+    if (yearRefs.current[year]) {
+      const element = yearRefs.current[year]
+      const offset = 20 // Offset from top
+      const elementPosition = element.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - offset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   return (
     <div className="home">
+      {/* Year Navigation Sidebar */}
+      {sortedYears.length > 0 && (
+        <div
+          className={`year-sidebar ${isSidebarHovered ? 'expanded' : ''}`}
+          onMouseEnter={() => setIsSidebarHovered(true)}
+          onMouseLeave={() => setIsSidebarHovered(false)}
+        >
+          {sortedYears.map((year) => (
+            <div
+              key={year}
+              className="year-nav-item"
+              onClick={() => scrollToYear(year)}
+            >
+              <div className="year-indicator"></div>
+              <span className="year-label">{year}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
       <header className="home-header">
         <h1>Messages for Raeya</h1>
         <button className="dark-mode-toggle" onClick={onToggleDarkMode} title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
@@ -81,7 +118,7 @@ function Home({ messages, familyMembers, selectedFamilyMember, onFamilyMemberSel
             const sortedMonths = months.sort((a, b) => monthOrder.indexOf(b) - monthOrder.indexOf(a))
 
             return (
-              <div key={year} className="year-section">
+              <div key={year} className="year-section" ref={(el) => (yearRefs.current[year] = el)}>
                 <h2 className="year-heading">{year}</h2>
                 {sortedMonths.map(month => (
                   <div key={`${year}-${month}`} className="month-section">
