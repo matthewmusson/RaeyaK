@@ -96,6 +96,19 @@ function AddMessage({ onAddMessage }) {
         </div>
 
         <div className="form-group">
+          <label htmlFor="message-text">Message:</label>
+          <textarea
+            id="message-text"
+            value={messageText}
+            onChange={(e) => setMessageText(e.target.value)}
+            placeholder="Write your message here..."
+            rows={6}
+            className="message-textarea"
+            required
+          />
+        </div>
+
+        <div className="form-group">
           <label htmlFor="name-select">From:</label>
           <div className="name-select-wrapper">
             <input
@@ -128,19 +141,6 @@ function AddMessage({ onAddMessage }) {
               </div>
             )}
           </div>
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="message-text">Message:</label>
-          <textarea
-            id="message-text"
-            value={messageText}
-            onChange={(e) => setMessageText(e.target.value)}
-            placeholder="Write your message here..."
-            rows={6}
-            className="message-textarea"
-            required
-          />
         </div>
 
         <div className="form-actions">
