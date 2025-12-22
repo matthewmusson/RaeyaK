@@ -1,0 +1,46 @@
+.message-card {
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 1.5rem;
+  position: relative;
+  transition: box-shadow 0.2s ease;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.message-timestamp {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 0.75rem;
+  color: #999;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+
+.message-content {
+  flex: 1;
+  padding-top: 1.5rem;
+}
+
+.message-content p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  color: #333;
+  font-size: 1rem;
+}
+
+.message-signature {
+  margin-top: auto;
+  margin-bottom: 0;
+  color: #666;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
