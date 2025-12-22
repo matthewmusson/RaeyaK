@@ -68,6 +68,13 @@ function AddMessage({ onAddMessage }) {
     }
   }
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && filteredMembers.length === 1) {
+      e.preventDefault()
+      handleNameSelect(filteredMembers[0])
+    }
+  }
+
   if (!isOpen) {
     return (
       <button className="add-message-toggle" onClick={() => setIsOpen(true)}>
@@ -117,6 +124,7 @@ function AddMessage({ onAddMessage }) {
               type="text"
               value={searchQuery}
               onChange={handleSearchChange}
+              onKeyDown={handleKeyDown}
               onFocus={() => setShowDropdown(true)}
               placeholder="Search and select a name..."
               className="name-input"

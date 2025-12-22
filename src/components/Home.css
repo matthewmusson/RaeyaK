@@ -3,8 +3,11 @@
 }
 
 .home-header {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 3rem;
+  position: relative;
 }
 
 .home-header h1 {
@@ -12,6 +15,39 @@
   font-weight: 300;
   color: #2c3e50;
   letter-spacing: 2px;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .home-header h1 {
+  color: #e0e0e0;
+}
+
+.dark-mode-toggle {
+  position: absolute;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark-mode-toggle:hover {
+  transform: scale(1.1);
+}
+
+.theme-icon {
+  width: 24px;
+  height: 24px;
+  color: #2c3e50;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .theme-icon {
+  color: #e0e0e0;
 }
 
 .tabs {
@@ -22,6 +58,11 @@
   justify-content: center;
   border-bottom: 1px solid #e0e0e0;
   padding-bottom: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.dark-mode .tabs {
+  border-bottom-color: #333;
 }
 
 .tab {
@@ -36,8 +77,16 @@
   margin-bottom: -1px;
 }
 
+.dark-mode .tab {
+  color: #999;
+}
+
 .tab:hover {
   color: #333;
+}
+
+.dark-mode .tab:hover {
+  color: #e0e0e0;
 }
 
 .tab.active {
@@ -46,23 +95,85 @@
   font-weight: 500;
 }
 
+.dark-mode .tab.active {
+  color: #e0e0e0;
+  border-bottom-color: #e0e0e0;
+}
+
+.messages-container {
+  width: 100%;
+}
+
+.year-section {
+  margin-bottom: 3rem;
+}
+
+.year-heading {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #2c3e50;
+  letter-spacing: 1px;
+  margin-bottom: 2rem;
+  
+  padding-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .year-heading {
+  color: #e0e0e0;
+  border-bottom-color: #404040;
+}
+
+.month-section {
+  margin-bottom: 2.5rem;
+}
+
+.month-heading {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #555;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+  border-left: 3px solid #2c3e50;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .month-heading {
+  color: #b0b0b0;
+  border-left-color: #e0e0e0;
+}
+
 .messages-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .no-messages {
-  grid-column: 1 / -1;
   text-align: center;
   color: #999;
   font-size: 1.1rem;
   padding: 3rem;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .no-messages {
+  color: #666;
 }
 
 @media (max-width: 768px) {
   .home-header h1 {
     font-size: 2rem;
+  }
+
+  .year-heading {
+    font-size: 2rem;
+  }
+
+  .month-heading {
+    font-size: 1.25rem;
   }
 
   .messages-grid {

@@ -4,14 +4,24 @@
   border-radius: 8px;
   padding: 1.5rem;
   position: relative;
-  transition: box-shadow 0.2s ease;
+  transition: all 0.3s ease;
   min-height: 150px;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
+}
+
+.dark-mode .message-card {
+  background: #2a2a2a;
+  border-color: #404040;
 }
 
 .message-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.dark-mode .message-card:hover {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
 }
 
 .message-timestamp {
@@ -22,6 +32,11 @@
   color: #999;
   font-weight: 400;
   letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .message-timestamp {
+  color: #888;
 }
 
 .message-content {
@@ -34,6 +49,11 @@
   line-height: 1.7;
   color: #333;
   font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .message-content p {
+  color: #d0d0d0;
 }
 
 .message-signature {
@@ -42,5 +62,211 @@
   color: #666;
   font-style: italic;
   font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .message-signature {
+  color: #999;
+}
+
+.name-link {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.name-link:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+
+.modal-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 800px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.dark-mode .modal-card {
+  background: #2a2a2a;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-date {
+  font-size: 0.875rem;
+  color: #999;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.dark-mode .modal-date {
+  color: #888;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  height: 22px;
+}
+
+.delete-button,
+.minimize-button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+  font-weight: 400;
+  line-height: 1;
+  height: 22px;
+}
+
+.dark-mode .delete-button,
+.dark-mode .minimize-button {
+  color: #888;
+}
+
+.delete-button:hover {
+  color: #333;
+}
+
+.dark-mode .delete-button:hover {
+  color: #d0d0d0;
+}
+
+.minimize-button:hover {
+  color: #333;
+}
+
+.dark-mode .minimize-button:hover {
+  color: #d0d0d0;
+}
+
+.modal-content {
+  padding-top: 1rem;
+}
+
+.modal-content p {
+  margin-bottom: 1rem;
+  line-height: 1.7;
+  color: #333;
+  font-size: 1rem;
+  white-space: pre-wrap;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .modal-content p {
+  color: #d0d0d0;
+}
+
+/* Delete confirmation dialog */
+.delete-confirm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border: 2px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  min-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .delete-confirm {
+  background: #1a1a1a;
+  border-color: #404040;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+}
+
+.delete-confirm p {
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 1rem;
+  text-align: center;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .delete-confirm p {
+  color: #d0d0d0;
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.confirm-yes,
+.confirm-no {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.confirm-yes {
+  background: #dc2626;
+  color: white;
+}
+
+.confirm-yes:hover {
+  background: #b91c1c;
+}
+
+.confirm-no {
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.dark-mode .confirm-no {
+  background: #404040;
+  color: #d0d0d0;
+}
+
+.confirm-no:hover {
+  background: #d1d5db;
+}
+
+.dark-mode .confirm-no:hover {
+  background: #4a4a4a;
 }
 
