@@ -8,6 +8,10 @@ function AddMessage({ onAddMessage }) {
   const [selectedName, setSelectedName] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [showDropdown, setShowDropdown] = useState(false)
+  const [photos, setPhotos] = useState([])
+  const [videos, setVideos] = useState([])
+  const [audio, setAudio] = useState(null)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const dropdownRef = useRef(null)
   const inputRef = useRef(null)
 
@@ -31,27 +35,67 @@ function AddMessage({ onAddMessage }) {
     }
   }, [])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!messageText.trim() || !selectedName.trim()) {
+    if (!messageText.trim() || !selectedName.trim() || isSubmitting) {
       return
     }
 
-    const newMessage = {
-      id: Date.now(),
-      text: messageText.trim(),
-      name: selectedName.trim(),
-      date: new Date().toISOString().split('T')[0]
-    }
+    setIsSubmitting(true)
 
-    onAddMessage(newMessage)
-    
-    // Reset form
-    setMessageText('')
-    setSelectedName('')
-    setSearchQuery('')
-    setIsOpen(false)
-    setShowDropdown(false)
+    try {
+      const messageData = {
+        text: messageText.trim(),
+        name: selectedName.trim(),
+        photos: photos,
+        videos: videos,
+        audio: audio
+      }
+
+      await onAddMessage(messageData)
+
+      // Reset form
+      setMessageText('')
+      setSelectedName('')
+      setSearchQuery('')
+      setPhotos([])
+      setVideos([])
+      setAudio(null)
+      setIsOpen(false)
+      setShowDropdown(false)
+    } catch (error) {
+      console.error('Error adding message:', error)
+      alert('Failed to add message. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handlePhotoChange = (e) => {
+    const files = Array.from(e.target.files)
+    setPhotos(prev => [...prev, ...files])
+  }
+
+  const handleVideoChange = (e) => {
+    const files = Array.from(e.target.files)
+    setVideos(prev => [...prev, ...files])
+  }
+
+  const handleAudioChange = (e) => {
+    const file = e.target.files[0]
+    setAudio(file)
+  }
+
+  const removePhoto = (index) => {
+    setPhotos(prev => prev.filter((_, i) => i !== index))
+  }
+
+  const removeVideo = (index) => {
+    setVideos(prev => prev.filter((_, i) => i !== index))
+  }
+
+  const removeAudio = () => {
+    setAudio(null)
   }
 
   const handleNameSelect = (name) => {
@@ -88,14 +132,17 @@ function AddMessage({ onAddMessage }) {
       <form onSubmit={handleSubmit} className="add-message-form">
         <div className="form-header">
           <h2>Add a Message</h2>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="close-button"
             onClick={() => {
               setIsOpen(false)
               setMessageText('')
               setSelectedName('')
               setSearchQuery('')
+              setPhotos([])
+              setVideos([])
+              setAudio(null)
             }}
           >
             ×
@@ -151,18 +198,102 @@ function AddMessage({ onAddMessage }) {
           </div>
         </div>
 
+        <div className="form-group">
+          <label htmlFor="photos-upload">Photos:</label>
+          <input
+            id="photos-upload"
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handlePhotoChange}
+            className="file-input"
+          />
+          {photos.length > 0 && (
+            <div className="file-preview-list">
+              {photos.map((photo, index) => (
+                <div key={index} className="file-preview-item">
+                  <span className="file-name">{photo.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => removePhoto(index)}
+                    className="remove-file-button"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="videos-upload">Videos:</label>
+          <input
+            id="videos-upload"
+            type="file"
+            accept="video/*"
+            multiple
+            onChange={handleVideoChange}
+            className="file-input"
+          />
+          {videos.length > 0 && (
+            <div className="file-preview-list">
+              {videos.map((video, index) => (
+                <div key={index} className="file-preview-item">
+                  <span className="file-name">{video.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => removeVideo(index)}
+                    className="remove-file-button"
+                  >
+                    ×
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="audio-upload">Audio Message:</label>
+          <input
+            id="audio-upload"
+            type="file"
+            accept="audio/*"
+            onChange={handleAudioChange}
+            className="file-input"
+          />
+          {audio && (
+            <div className="file-preview-list">
+              <div className="file-preview-item">
+                <span className="file-name">{audio.name}</span>
+                <button
+                  type="button"
+                  onClick={removeAudio}
+                  className="remove-file-button"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
         <div className="form-actions">
-          <button type="submit" className="submit-button" disabled={!messageText.trim() || !selectedName.trim()}>
-            Add Message
+          <button type="submit" className="submit-button" disabled={!messageText.trim() || !selectedName.trim() || isSubmitting}>
+            {isSubmitting ? 'Adding...' : 'Add Message'}
           </button>
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="cancel-button"
             onClick={() => {
               setIsOpen(false)
               setMessageText('')
               setSelectedName('')
               setSearchQuery('')
+              setPhotos([])
+              setVideos([])
+              setAudio(null)
             }}
           >
             Cancel

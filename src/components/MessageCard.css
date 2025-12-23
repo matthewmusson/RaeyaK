@@ -135,9 +135,34 @@
 
 .modal-actions {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.75rem;
   align-items: center;
   height: 22px;
+}
+
+.edit-button {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+}
+
+.dark-mode .edit-button {
+  color: #888;
+}
+
+.edit-button:hover {
+  color: #2c3e50;
+}
+
+.dark-mode .edit-button:hover {
+  color: #e0e0e0;
 }
 
 .delete-button {
@@ -158,11 +183,11 @@
 }
 
 .delete-button:hover {
-  color: #333;
+  color: #dc2626;
 }
 
 .dark-mode .delete-button:hover {
-  color: #d0d0d0;
+  color: #f87171;
 }
 
 .minimize-button:hover {
@@ -199,7 +224,7 @@
   background: white;
   border: 2px solid #e8e8e8;
   border-radius: 8px;
-  padding: 2rem;
+  padding: 1rem;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
   z-index: 10;
   min-width: 300px;
@@ -266,5 +291,92 @@
 
 .dark-mode .confirm-no:hover {
   background: #4a4a4a;
+}
+
+/* Media badges on cards */
+.media-indicators {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.media-badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  background: #f0f0f0;
+  border-radius: 4px;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .media-badge {
+  background: #333;
+  color: #999;
+}
+
+/* Media sections in modal */
+.media-section {
+  margin: 1.5rem 0;
+}
+
+.media-section h4 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .media-section h4 {
+  color: #999;
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.media-photo,
+.media-video {
+  width: 100%;
+  border-radius: 8px;
+  max-height: 300px;
+  object-fit: cover;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .media-photo,
+.dark-mode .media-video {
+  border-color: #404040;
+}
+
+.media-photo:hover,
+.media-video:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .media-photo:hover,
+.dark-mode .media-video:hover {
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+}
+
+.media-audio {
+  width: 100%;
+  max-width: 500px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .media-grid {
+    grid-template-columns: 1fr;
+  }
 }
 

@@ -320,6 +320,92 @@
   color: #d0d0d0;
 }
 
+.file-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px dashed #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #fafafa;
+  color: #333;
+}
+
+.dark-mode .file-input {
+  background-color: #1a1a1a;
+  color: #d0d0d0;
+  border-color: #404040;
+}
+
+.file-input:hover {
+  border-color: #2c3e50;
+  background-color: #f5f5f5;
+}
+
+.dark-mode .file-input:hover {
+  border-color: #e0e0e0;
+  background-color: #2a2a2a;
+}
+
+.file-preview-list {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.file-preview-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s ease;
+}
+
+.dark-mode .file-preview-item {
+  background-color: #2a2a2a;
+  border-color: #404040;
+}
+
+.file-name {
+  font-size: 0.85rem;
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .file-name {
+  color: #b0b0b0;
+}
+
+.remove-file-button {
+  background: none;
+  border: none;
+  color: #dc2626;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+
+.remove-file-button:hover {
+  color: #b91c1c;
+}
+
 @media (max-width: 768px) {
   .add-message-container {
     width: calc(100% - 2rem);

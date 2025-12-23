@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import MessageCard from './MessageCard'
 import './Home.css'
 
-function Home({ messages, familyMembers, selectedFamilyMember, onFamilyMemberSelect, onDeleteMessage, isDarkMode, onToggleDarkMode }) {
+function Home({ messages, familyMembers, selectedFamilyMember, onFamilyMemberSelect, onDeleteMessage, onEditMessage, isDarkMode, onToggleDarkMode }) {
   // Limit to 30 cards
   const displayedMessages = messages.slice(0, 30)
   const [isSidebarHovered, setIsSidebarHovered] = useState(false)
@@ -129,6 +129,7 @@ function Home({ messages, familyMembers, selectedFamilyMember, onFamilyMemberSel
                           key={`${message.id}-${index}`}
                           message={message}
                           onDelete={onDeleteMessage}
+                          onEdit={onEditMessage}
                           onNameClick={handleNameClick}
                         />
                       ))}

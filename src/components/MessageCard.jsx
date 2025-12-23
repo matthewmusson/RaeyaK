@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import './MessageCard.css'
 
-function MessageCard({ message, onDelete, onNameClick }) {
+function MessageCard({ message, onDelete, onNameClick, onEdit }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const modalRef = useRef(null)
@@ -63,6 +63,11 @@ function MessageCard({ message, onDelete, onNameClick }) {
     onNameClick(message.name)
   }
 
+  const handleEdit = () => {
+    onEdit(message)
+    setIsExpanded(false)
+  }
+
   return (
     <>
       <div className="message-card" onClick={() => setIsExpanded(true)}>
@@ -71,6 +76,22 @@ function MessageCard({ message, onDelete, onNameClick }) {
         </div>
         <div className="message-content">
           <p>{truncateMessage(message.text)}</p>
+
+          {/* Media indicators */}
+          {(message.photos?.length > 0 || message.videos?.length > 0 || message.audio) && (
+            <div className="media-indicators">
+              {message.photos?.length > 0 && (
+                <span className="media-badge">📷 {message.photos.length} photo{message.photos.length > 1 ? 's' : ''}</span>
+              )}
+              {message.videos?.length > 0 && (
+                <span className="media-badge">🎥 {message.videos.length} video{message.videos.length > 1 ? 's' : ''}</span>
+              )}
+              {message.audio && (
+                <span className="media-badge">🎵 Audio</span>
+              )}
+            </div>
+          )}
+
           <p className="message-signature">
             — <span className="name-link" onClick={handleNameClick}>{message.name}</span>
           </p>
@@ -82,6 +103,16 @@ function MessageCard({ message, onDelete, onNameClick }) {
           <div className="modal-card" ref={modalRef}>
             <div className="modal-header">
               <div className="modal-actions">
+                <button
+                  className="edit-button"
+                  onClick={handleEdit}
+                  title="Edit message"
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </button>
                 <button
                   className="delete-button"
                   onClick={() => setShowDeleteConfirm(true)}
@@ -96,6 +127,49 @@ function MessageCard({ message, onDelete, onNameClick }) {
             </div>
             <div className="modal-content">
               <p>{message.text}</p>
+
+              {/* Display photos */}
+              {message.photos && message.photos.length > 0 && (
+                <div className="media-section">
+                  <h4>Photos</h4>
+                  <div className="media-grid">
+                    {message.photos.map((photo, index) => (
+                      <img
+                        key={index}
+                        src={photo.url}
+                        alt={`Photo ${index + 1}`}
+                        className="media-photo"
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Display videos */}
+              {message.videos && message.videos.length > 0 && (
+                <div className="media-section">
+                  <h4>Videos</h4>
+                  <div className="media-grid">
+                    {message.videos.map((video, index) => (
+                      <video
+                        key={index}
+                        src={video.url}
+                        controls
+                        className="media-video"
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Display audio */}
+              {message.audio && (
+                <div className="media-section">
+                  <h4>Audio Message</h4>
+                  <audio src={message.audio.url} controls className="media-audio" />
+                </div>
+              )}
+
               <p className="message-signature">
                 — <span className="name-link" onClick={handleNameClick}>{message.name}</span>
               </p>
@@ -103,9 +177,8 @@ function MessageCard({ message, onDelete, onNameClick }) {
 
             {showDeleteConfirm && (
               <div className="delete-confirm">
-                <p>Are you sure you want to delete this message?</p>
                 <div className="confirm-actions">
-                  <button className="confirm-yes" onClick={handleDelete}>Yes, Delete</button>
+                  <button className="confirm-yes" onClick={handleDelete}>Delete</button>
                   <button className="confirm-no" onClick={() => setShowDeleteConfirm(false)}>Cancel</button>
                 </div>
               </div>

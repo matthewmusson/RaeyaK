@@ -5,6 +5,23 @@
   margin: 0 auto;
 }
 
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.loading-container p {
+  font-size: 1.2rem;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .loading-container p {
+  color: #999;
+}
+
 @media (max-width: 768px) {
   .App {
     padding: 1rem;
