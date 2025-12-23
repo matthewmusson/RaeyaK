@@ -4,6 +4,8 @@ import './MessageCard.css'
 function MessageCard({ message, onDelete, onNameClick, onEdit }) {
   const [isExpanded, setIsExpanded] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [fullscreenImage, setFullscreenImage] = useState(null)
+  const [playingVideo, setPlayingVideo] = useState(null)
   const modalRef = useRef(null)
 
   const formatDate = (dateString) => {
@@ -81,13 +83,33 @@ function MessageCard({ message, onDelete, onNameClick, onEdit }) {
           {(message.photos?.length > 0 || message.videos?.length > 0 || message.audio) && (
             <div className="media-indicators">
               {message.photos?.length > 0 && (
-                <span className="media-badge">📷 {message.photos.length} photo{message.photos.length > 1 ? 's' : ''}</span>
+                <span className="media-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                    <circle cx="8.5" cy="8.5" r="1.5"/>
+                    <polyline points="21 15 16 10 5 21"/>
+                  </svg>
+                  {message.photos.length} photo{message.photos.length > 1 ? 's' : ''}
+                </span>
               )}
               {message.videos?.length > 0 && (
-                <span className="media-badge">🎥 {message.videos.length} video{message.videos.length > 1 ? 's' : ''}</span>
+                <span className="media-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polygon points="23 7 16 12 23 17 23 7"/>
+                    <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                  </svg>
+                  {message.videos.length} video{message.videos.length > 1 ? 's' : ''}
+                </span>
               )}
               {message.audio && (
-                <span className="media-badge">🎵 Audio</span>
+                <span className="media-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 18V5l12-2v13"/>
+                    <circle cx="6" cy="18" r="3"/>
+                    <circle cx="18" cy="16" r="3"/>
+                  </svg>
+                  Audio
+                </span>
               )}
             </div>
           )}
@@ -139,6 +161,10 @@ function MessageCard({ message, onDelete, onNameClick, onEdit }) {
                         src={photo.url}
                         alt={`Photo ${index + 1}`}
                         className="media-photo"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setFullscreenImage(photo.url)
+                        }}
                       />
                     ))}
                   </div>
@@ -151,12 +177,24 @@ function MessageCard({ message, onDelete, onNameClick, onEdit }) {
                   <h4>Videos</h4>
                   <div className="media-grid">
                     {message.videos.map((video, index) => (
-                      <video
+                      <div
                         key={index}
-                        src={video.url}
-                        controls
-                        className="media-video"
-                      />
+                        className="video-thumbnail"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setPlayingVideo(video.url)
+                        }}
+                      >
+                        <video
+                          src={video.url}
+                          className="media-video"
+                        />
+                        <div className="play-overlay">
+                          <svg width="60" height="60" viewBox="0 0 24 24" fill="white" opacity="0.9">
+                            <path d="M8 5v14l11-7z"/>
+                          </svg>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -184,6 +222,41 @@ function MessageCard({ message, onDelete, onNameClick, onEdit }) {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {fullscreenImage && (
+        <div className="fullscreen-overlay" onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            setFullscreenImage(null)
+          }
+        }}>
+          <img
+            src={fullscreenImage}
+            alt="Fullscreen"
+            className="fullscreen-image"
+          />
+          <button className="close-fullscreen" onClick={() => {
+            setFullscreenImage(null)
+          }}>×</button>
+        </div>
+      )}
+
+      {playingVideo && (
+        <div className="fullscreen-overlay" onClick={(e) => {
+          if (e.target === e.currentTarget) {
+            setPlayingVideo(null)
+          }
+        }}>
+          <video
+            src={playingVideo}
+            controls
+            autoPlay
+            className="fullscreen-video"
+          />
+          <button className="close-fullscreen" onClick={() => {
+            setPlayingVideo(null)
+          }}>×</button>
         </div>
       )}
     </>

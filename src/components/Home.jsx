@@ -74,7 +74,7 @@ function Home({ messages, familyMembers, selectedFamilyMember, onFamilyMemberSel
       )}
 
       <header className="home-header">
-        <h1>Messages for Raeya</h1>
+        <h1>Raeya's Letters</h1>
         <button className="dark-mode-toggle" onClick={onToggleDarkMode} title={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}>
           {isDarkMode ? (
             <svg className="theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

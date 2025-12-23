@@ -12,11 +12,11 @@ function AddMessage({ onAddMessage }) {
   const [videos, setVideos] = useState([])
   const [audio, setAudio] = useState(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [showPhotoUpload, setShowPhotoUpload] = useState(false)
-  const [showVideoUpload, setShowVideoUpload] = useState(false)
-  const [showAudioUpload, setShowAudioUpload] = useState(false)
   const dropdownRef = useRef(null)
   const inputRef = useRef(null)
+  const photoInputRef = useRef(null)
+  const videoInputRef = useRef(null)
+  const audioInputRef = useRef(null)
 
   // Filter family members based on search query
   const filteredMembers = familyMembers.filter(member =>
@@ -203,124 +203,115 @@ function AddMessage({ onAddMessage }) {
 
         <div className="form-group">
           <div className="upload-section-header">
-            <label>Add Photos</label>
+            <label>Photos</label>
             <button
               type="button"
               className="toggle-upload-button"
-              onClick={() => setShowPhotoUpload(!showPhotoUpload)}
-              title={showPhotoUpload ? "Hide photo upload" : "Show photo upload"}
+              onClick={() => photoInputRef.current?.click()}
+              title="Add photos"
             >
-              {showPhotoUpload ? '−' : '+'}
+              +
             </button>
           </div>
-          {showPhotoUpload && (
-            <>
-              <input
-                id="photos-upload"
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handlePhotoChange}
-                className="file-input"
-              />
-              {photos.length > 0 && (
-                <div className="file-preview-list">
-                  {photos.map((photo, index) => (
-                    <div key={index} className="file-preview-item">
-                      <span className="file-name">{photo.name}</span>
-                      <button
-                        type="button"
-                        onClick={() => removePhoto(index)}
-                        className="remove-file-button"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))}
+          <input
+            ref={photoInputRef}
+            id="photos-upload"
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handlePhotoChange}
+            className="hidden-file-input"
+          />
+          {photos.length > 0 && (
+            <div className="file-preview-list">
+              {photos.map((photo, index) => (
+                <div key={index} className="file-preview-item">
+                  <span className="file-name">{photo.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => removePhoto(index)}
+                    className="remove-file-button"
+                  >
+                    ×
+                  </button>
                 </div>
-              )}
-            </>
+              ))}
+            </div>
           )}
         </div>
 
         <div className="form-group">
           <div className="upload-section-header">
-            <label>Add Videos</label>
+            <label>Videos</label>
             <button
               type="button"
               className="toggle-upload-button"
-              onClick={() => setShowVideoUpload(!showVideoUpload)}
-              title={showVideoUpload ? "Hide video upload" : "Show video upload"}
+              onClick={() => videoInputRef.current?.click()}
+              title="Add videos"
             >
-              {showVideoUpload ? '−' : '+'}
+              +
             </button>
           </div>
-          {showVideoUpload && (
-            <>
-              <input
-                id="videos-upload"
-                type="file"
-                accept="video/*"
-                multiple
-                onChange={handleVideoChange}
-                className="file-input"
-              />
-              {videos.length > 0 && (
-                <div className="file-preview-list">
-                  {videos.map((video, index) => (
-                    <div key={index} className="file-preview-item">
-                      <span className="file-name">{video.name}</span>
-                      <button
-                        type="button"
-                        onClick={() => removeVideo(index)}
-                        className="remove-file-button"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))}
+          <input
+            ref={videoInputRef}
+            id="videos-upload"
+            type="file"
+            accept="video/*"
+            multiple
+            onChange={handleVideoChange}
+            className="hidden-file-input"
+          />
+          {videos.length > 0 && (
+            <div className="file-preview-list">
+              {videos.map((video, index) => (
+                <div key={index} className="file-preview-item">
+                  <span className="file-name">{video.name}</span>
+                  <button
+                    type="button"
+                    onClick={() => removeVideo(index)}
+                    className="remove-file-button"
+                  >
+                    ×
+                  </button>
                 </div>
-              )}
-            </>
+              ))}
+            </div>
           )}
         </div>
 
         <div className="form-group">
           <div className="upload-section-header">
-            <label>Add Audio</label>
+            <label>Audio</label>
             <button
               type="button"
               className="toggle-upload-button"
-              onClick={() => setShowAudioUpload(!showAudioUpload)}
-              title={showAudioUpload ? "Hide audio upload" : "Show audio upload"}
+              onClick={() => audioInputRef.current?.click()}
+              title="Add audio"
             >
-              {showAudioUpload ? '−' : '+'}
+              +
             </button>
           </div>
-          {showAudioUpload && (
-            <>
-              <input
-                id="audio-upload"
-                type="file"
-                accept="audio/*"
-                onChange={handleAudioChange}
-                className="file-input"
-              />
-              {audio && (
-                <div className="file-preview-list">
-                  <div className="file-preview-item">
-                    <span className="file-name">{audio.name}</span>
-                    <button
-                      type="button"
-                      onClick={removeAudio}
-                      className="remove-file-button"
-                    >
-                      ×
-                    </button>
-                  </div>
-                </div>
-              )}
-            </>
+          <input
+            ref={audioInputRef}
+            id="audio-upload"
+            type="file"
+            accept="audio/*"
+            onChange={handleAudioChange}
+            className="hidden-file-input"
+          />
+          {audio && (
+            <div className="file-preview-list">
+              <div className="file-preview-item">
+                <span className="file-name">{audio.name}</span>
+                <button
+                  type="button"
+                  onClick={removeAudio}
+                  className="remove-file-button"
+                >
+                  ×
+                </button>
+              </div>
+            </div>
           )}
         </div>
 

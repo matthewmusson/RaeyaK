@@ -320,6 +320,10 @@
   color: #d0d0d0;
 }
 
+.hidden-file-input {
+  display: none;
+}
+
 .file-input {
   width: 100%;
   padding: 0.75rem;
@@ -444,12 +448,12 @@
 .remove-file-button {
   background: none;
   border: none;
-  color: #dc2626;
-  font-size: 1.5rem;
+  color: #999;
+  font-size: 1.2rem;
   cursor: pointer;
   padding: 0;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.2rem;
+  height: 1.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -458,8 +462,16 @@
   margin-left: 0.5rem;
 }
 
+.dark-mode .remove-file-button {
+  color: #888;
+}
+
 .remove-file-button:hover {
-  color: #b91c1c;
+  color: #333;
+}
+
+.dark-mode .remove-file-button:hover {
+  color: #d0d0d0;
 }
 
 @media (max-width: 768px) {
