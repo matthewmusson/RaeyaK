@@ -14,6 +14,8 @@ function EditMessage({ message, onUpdateMessage, onClose }) {
   const [existingPhotos, setExistingPhotos] = useState(message.photos || [])
   const [existingVideos, setExistingVideos] = useState(message.videos || [])
   const [existingAudio, setExistingAudio] = useState(message.audio)
+  const [deletedPhotos, setDeletedPhotos] = useState([])
+  const [deletedVideos, setDeletedVideos] = useState([])
   const [showPhotoUpload, setShowPhotoUpload] = useState(false)
   const [showVideoUpload, setShowVideoUpload] = useState(false)
   const [showAudioUpload, setShowAudioUpload] = useState(false)
@@ -80,6 +82,15 @@ function EditMessage({ message, onUpdateMessage, onClose }) {
         updates.newVideos = newVideos
       }
 
+      // Add deleted media arrays
+      if (deletedPhotos.length > 0) {
+        updates.deletedPhotos = deletedPhotos
+      }
+
+      if (deletedVideos.length > 0) {
+        updates.deletedVideos = deletedVideos
+      }
+
       if (newAudio) {
         updates.newAudio = newAudio
         updates.oldAudioPath = message.audio?.path
@@ -127,10 +138,14 @@ function EditMessage({ message, onUpdateMessage, onClose }) {
   }
 
   const removeExistingPhoto = (index) => {
+    const photoToDelete = existingPhotos[index]
+    setDeletedPhotos(prev => [...prev, photoToDelete])
     setExistingPhotos(prev => prev.filter((_, i) => i !== index))
   }
 
   const removeExistingVideo = (index) => {
+    const videoToDelete = existingVideos[index]
+    setDeletedVideos(prev => [...prev, videoToDelete])
     setExistingVideos(prev => prev.filter((_, i) => i !== index))
   }
 

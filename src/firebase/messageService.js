@@ -174,7 +174,7 @@ export const updateMessage = async (messageId, updates) => {
       updatedAt: serverTimestamp()
     };
 
-    // Handle new file uploads if provided
+    // Handle photo updates
     if (updates.newPhotos && updates.newPhotos.length > 0) {
       const newPhotoUrls = [];
       for (const photo of updates.newPhotos) {
@@ -182,8 +182,12 @@ export const updateMessage = async (messageId, updates) => {
         newPhotoUrls.push(photoData);
       }
       updateData.photos = [...(updates.photos || []), ...newPhotoUrls];
+    } else {
+      // No new photos being added, just update with existing photos
+      updateData.photos = updates.photos || [];
     }
 
+    // Handle video updates
     if (updates.newVideos && updates.newVideos.length > 0) {
       const newVideoUrls = [];
       for (const video of updates.newVideos) {
@@ -191,8 +195,12 @@ export const updateMessage = async (messageId, updates) => {
         newVideoUrls.push(videoData);
       }
       updateData.videos = [...(updates.videos || []), ...newVideoUrls];
+    } else {
+      // No new videos being added, just update with existing videos
+      updateData.videos = updates.videos || [];
     }
 
+    // Handle audio updates
     if (updates.newAudio) {
       // Delete old audio if exists
       if (updates.oldAudioPath) {
@@ -200,6 +208,30 @@ export const updateMessage = async (messageId, updates) => {
       }
       const audioData = await uploadFile(updates.newAudio, messageId, 'audio');
       updateData.audio = audioData;
+    } else if (updates.deleteAudio) {
+      // Audio was deleted without replacement
+      if (updates.oldAudioPath) {
+        await deleteFile(updates.oldAudioPath);
+      }
+      updateData.audio = null;
+    }
+
+    // Delete removed photos from storage
+    if (updates.deletedPhotos && updates.deletedPhotos.length > 0) {
+      for (const photo of updates.deletedPhotos) {
+        if (photo.path) {
+          await deleteFile(photo.path);
+        }
+      }
+    }
+
+    // Delete removed videos from storage
+    if (updates.deletedVideos && updates.deletedVideos.length > 0) {
+      for (const video of updates.deletedVideos) {
+        if (video.path) {
+          await deleteFile(video.path);
+        }
+      }
     }
 
     await updateDoc(messageRef, updateData);

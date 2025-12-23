@@ -348,6 +348,62 @@
   background-color: #2a2a2a;
 }
 
+.upload-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.upload-section-header label {
+  display: block;
+  color: #555;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  margin: 0;
+}
+
+.dark-mode .upload-section-header label {
+  color: #b0b0b0;
+}
+
+.toggle-upload-button {
+  background: #f5f5f5;
+  border: 1px solid #e8e8e8;
+  color: #666;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.dark-mode .toggle-upload-button {
+  background: #2a2a2a;
+  border-color: #404040;
+  color: #b0b0b0;
+}
+
+.toggle-upload-button:hover {
+  background: #e8e8e8;
+  border-color: #d0d0d0;
+  color: #333;
+}
+
+.dark-mode .toggle-upload-button:hover {
+  background: #3a3a3a;
+  border-color: #4a4a4a;
+  color: #d0d0d0;
+}
+
 .file-preview-list {
   margin-top: 0.75rem;
   display: flex;
