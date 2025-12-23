@@ -38,6 +38,11 @@ function MessageCard({ message, onDelete, onNameClick, onEdit }) {
   // Handle click outside modal to close
   useEffect(() => {
     const handleClickOutside = (event) => {
+      // Don't close modal if clicking on fullscreen overlay or its children
+      if (event.target.closest('.fullscreen-overlay')) {
+        return
+      }
+
       if (isExpanded && modalRef.current && !modalRef.current.contains(event.target)) {
         setIsExpanded(false)
         setShowDeleteConfirm(false)
@@ -235,6 +240,7 @@ function MessageCard({ message, onDelete, onNameClick, onEdit }) {
             src={fullscreenImage}
             alt="Fullscreen"
             className="fullscreen-image"
+            onClick={(e) => e.stopPropagation()}
           />
           <button className="close-fullscreen" onClick={() => {
             setFullscreenImage(null)
@@ -253,6 +259,7 @@ function MessageCard({ message, onDelete, onNameClick, onEdit }) {
             controls
             autoPlay
             className="fullscreen-video"
+            onClick={(e) => e.stopPropagation()}
           />
           <button className="close-fullscreen" onClick={() => {
             setPlayingVideo(null)

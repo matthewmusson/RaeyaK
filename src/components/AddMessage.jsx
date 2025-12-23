@@ -131,8 +131,9 @@ function AddMessage({ onAddMessage }) {
   }
 
   return (
-    <div className="add-message-container">
-      <form onSubmit={handleSubmit} className="add-message-form">
+    <div className="add-message-backdrop">
+      <div className="add-message-container" onClick={(e) => e.stopPropagation()}>
+        <form onSubmit={handleSubmit} className="add-message-form">
         <div className="form-header">
           <h2>Add a Message</h2>
           <button
@@ -336,6 +337,7 @@ function AddMessage({ onAddMessage }) {
           </button>
         </div>
       </form>
+      </div>
     </div>
   )
 }
