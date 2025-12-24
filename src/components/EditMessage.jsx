@@ -433,7 +433,7 @@ function EditMessage({ message, onUpdateMessage, onClose }) {
 
           <div className="form-actions">
             <button type="submit" className="submit-button" disabled={!messageText.trim() || !selectedName.trim() || isSubmitting}>
-              {isSubmitting ? 'Updating...' : 'Update Message'}
+              {isSubmitting ? 'Updating...' : 'Update'}
             </button>
             <button
               type="button"

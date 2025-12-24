@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Home from './components/Home'
 import AddMessage from './components/AddMessage'
 import EditMessage from './components/EditMessage'
+import HolidayLetter from './components/HolidayLetter'
 import { familyMembers as familyMembersList } from './data/familyMembers'
 import { getMessages, addMessage, updateMessage, deleteMessage } from './firebase/messageService'
 import './App.css'
@@ -109,26 +111,35 @@ function App() {
   }
 
   return (
-    <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
-      <Home
-        messages={sortedMessages}
-        familyMembers={familyMembers}
-        selectedFamilyMember={selectedFamilyMember}
-        onFamilyMemberSelect={setSelectedFamilyMember}
-        onDeleteMessage={handleDeleteMessage}
-        onEditMessage={handleEditMessage}
-        isDarkMode={isDarkMode}
-        onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
-      />
-      <AddMessage onAddMessage={handleAddMessage} />
-      {editingMessage && (
-        <EditMessage
-          message={editingMessage}
-          onUpdateMessage={handleUpdateMessage}
-          onClose={() => setEditingMessage(null)}
-        />
-      )}
-    </div>
+    <Router>
+      <div className={`App ${isDarkMode ? 'dark-mode' : ''}`}>
+        <Routes>
+          <Route path="/" element={
+            <>
+              <Home
+                messages={sortedMessages}
+                familyMembers={familyMembers}
+                selectedFamilyMember={selectedFamilyMember}
+                onFamilyMemberSelect={setSelectedFamilyMember}
+                onDeleteMessage={handleDeleteMessage}
+                onEditMessage={handleEditMessage}
+                isDarkMode={isDarkMode}
+                onToggleDarkMode={() => setIsDarkMode(!isDarkMode)}
+              />
+              <AddMessage onAddMessage={handleAddMessage} />
+              {editingMessage && (
+                <EditMessage
+                  message={editingMessage}
+                  onUpdateMessage={handleUpdateMessage}
+                  onClose={() => setEditingMessage(null)}
+                />
+              )}
+            </>
+          } />
+          <Route path="/holiday-letter-2025" element={<HolidayLetter isDarkMode={isDarkMode} />} />
+        </Routes>
+      </div>
+    </Router>
   )
 }
 

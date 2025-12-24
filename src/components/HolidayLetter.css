@@ -1,0 +1,131 @@
+.holiday-letter-page {
+  min-height: 100vh;
+  background: #f8f8f8;
+  padding: 2rem;
+  transition: background 0.3s ease;
+}
+
+.dark-mode .holiday-letter-page {
+  background: #1a1a1a;
+}
+
+.holiday-letter-header {
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  color: #2c3e50;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.dark-mode .back-button {
+  background: #2a2a2a;
+  border-color: #404040;
+  color: #e0e0e0;
+}
+
+.back-button:hover {
+  background: #f8f8f8;
+  transform: translateX(-2px);
+}
+
+.dark-mode .back-button:hover {
+  background: #333;
+}
+
+.holiday-letter-header h1 {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: #2c3e50;
+  margin: 0;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .holiday-letter-header h1 {
+  color: #e0e0e0;
+}
+
+.holiday-letter-content {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  padding: 3rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.dark-mode .holiday-letter-content {
+  background: #2a2a2a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.letter-body {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.dark-mode .letter-body {
+  color: #d0d0d0;
+}
+
+.letter-body p {
+  margin-bottom: 1.5rem;
+}
+
+.letter-body p:first-child {
+  font-weight: 500;
+}
+
+.letter-signature {
+  margin-top: 3rem;
+  font-style: italic;
+  color: #666;
+  font-size: 1rem;
+}
+
+.dark-mode .letter-signature {
+  color: #999;
+}
+
+@media (max-width: 768px) {
+  .holiday-letter-page {
+    padding: 1rem;
+  }
+
+  .holiday-letter-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .holiday-letter-header h1 {
+    font-size: 2rem;
+  }
+
+  .holiday-letter-content {
+    padding: 2rem 1.5rem;
+  }
+
+  .letter-body {
+    font-size: 1rem;
+  }
+}

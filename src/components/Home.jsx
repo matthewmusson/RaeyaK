@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import MessageCard from './MessageCard'
+import HolidayLetterCard from './HolidayLetterCard'
 import './Home.css'
 
 function Home({ messages, familyMembers, selectedFamilyMember, onFamilyMemberSelect, onDeleteMessage, onEditMessage, isDarkMode, onToggleDarkMode }) {
@@ -120,6 +121,7 @@ function Home({ messages, familyMembers, selectedFamilyMember, onFamilyMemberSel
             return (
               <div key={year} className="year-section" ref={(el) => (yearRefs.current[year] = el)}>
                 <h2 className="year-heading">{year}</h2>
+                <HolidayLetterCard year={year} />
                 {sortedMonths.map(month => (
                   <div key={`${year}-${month}`} className="month-section">
                     <h3 className="month-heading">{month}</h3>
